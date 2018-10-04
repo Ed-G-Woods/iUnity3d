@@ -28,10 +28,10 @@ public class RayShooter : MonoBehaviour {
                 if (target == null)
                 {
                     StartCoroutine(SphereIndicator(hit.point));
-                    
                 }
                 else
                 {
+                    target.ReactToHit();
                     StartCoroutine(SphereIndicator(hit.point));
                     Debug.Log("hit " + hit.point);
                 }
