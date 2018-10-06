@@ -195,6 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcab2d93134da9345aeaa911de31d66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireballPrefab: {fileID: 1157128273374854, guid: 47cb72006d89a1c4d82881a1b6e9295c,
+    type: 2}
   WalkSpeed: 6
   obstacleRange: 5
 --- !u!114 &114735453098916678
