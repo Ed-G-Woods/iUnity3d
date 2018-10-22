@@ -23,9 +23,10 @@ public class FPSInput : MonoBehaviour {
         
         Vector3 movement = new Vector3(forwardSpeed, 0, rightSpeed);
         movement = Vector3.ClampMagnitude(movement, WalkSpeed);
+        movement.y += gravity;
         movement *= Time.deltaTime;
         movement = transform.TransformDirection(movement);
-        movement.y += gravity;
+        
         _charController.Move(movement);
 	}
 }

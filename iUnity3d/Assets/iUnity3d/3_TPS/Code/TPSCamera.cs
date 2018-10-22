@@ -6,6 +6,7 @@ public class TPSCamera : MonoBehaviour {
 
     //     public float offsetZ=5f;
     //     public float offsetY=2f;
+
     public Vector3 offset = new Vector3(0, 2, 5);
     public Vector3 originLocation = new Vector3(0, 3, 0);
     public float rotSpeed = 1.5f;

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class TPSPlayer : MonoBehaviour {
 
-    public float speed = 1f;
+    public float speed = 5f;
     [SerializeField] private GameObject playerCamera;
+    [SerializeField] private GameObject playerMesh;
     private CharacterController _controller;
 
 	// Use this for initialization
@@ -21,6 +22,8 @@ public class TPSPlayer : MonoBehaviour {
 
     private void HandleInput()
     {
+
+        /*
         //get forward 
         Quaternion cameraRotation = playerCamera.transform.rotation;
         cameraRotation.x = 0;
@@ -37,5 +40,31 @@ public class TPSPlayer : MonoBehaviour {
         
         //transform.Translate(Movement, Space.World);
         _controller.Move(Movement);
+        */
+
+        RotateWithCamera();
+
+        Vector3 ForwardDirection = playerCamera.transform.forward;
+        Vector3 RightDirection = playerCamera.transform.right;
+
+        float forwardAxis = Input.GetAxis("Vertical");
+        float rightAxis = Input.GetAxis("Horizontal");
+
+        Vector3 Movement = (forwardAxis * ForwardDirection + rightAxis * RightDirection) * speed ;
+        Movement.y -= 9.8f;
+        Movement *= Time.deltaTime;
+
+        //transform.Translate(Movement, Space.World);
+        _controller.Move(Movement);
+    }
+
+    private void RotateWithCamera()
+    {
+        Quaternion cameraRotation = playerCamera.transform.localRotation;
+        Vector3 euler = cameraRotation.eulerAngles;
+        euler.Set(0, euler.y - 90, 0);
+
+        playerMesh.transform.localRotation = Quaternion.Euler(euler);
+
     }
 }
