@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Door : MonoBehaviour {
 
-    public float speed = 0.1f;
+    public float speed = 0.3f;
 
     [SerializeField] private Vector3 openPosition;
                     private Vector3 closePosition;
@@ -19,28 +19,41 @@ public class Door : MonoBehaviour {
 
     public void Operate()
     {
-        isOperating = true;
+        while (!isOperating)
+        {
+            isOperating = true;
+            StartCoroutine(DoorOperating());
+        }
+    }
 
+    private IEnumerator DoorOperating()
+    {
         while (isOperating)
         {
+            yield return null;
+            
             Vector3 currentPosition = transform.position;
-            Vector3 move = Vector3.zero;
+            Vector3 distance = Vector3.zero;
 
             if (!isOpen)
             {
-                move = (openPosition - currentPosition) * speed;
+                distance = (openPosition - currentPosition);
+                Vector3 move = distance * Time.deltaTime * speed;
                 transform.Translate(move);
             }
             else
             {
-                move = (closePosition - currentPosition) * speed;
+                distance = (closePosition - currentPosition);
+                Vector3 move = distance * Time.deltaTime * speed;
                 transform.Translate(move);
             }
+            Debug.Log("on");
 
-            if (Mathf.Abs(move.magnitude) < Mathf.Abs((openPosition - closePosition).magnitude))
+            if (Mathf.Abs(distance.magnitude) < Mathf.Abs((openPosition - closePosition).magnitude) * 0.05)
             {
                 isOpen = !isOpen;
                 isOperating = false;
+                Debug.Log("out");
             }
         }
     }
